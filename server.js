@@ -26,12 +26,13 @@ const db = mysql.createPool({
 
 
 
-db.connect(err => {
+db.getConnection((err, connection) => {
   if (err) {
     console.error("❌ Database connection failed:", err);
     return;
   }
   console.log("✅ Connected to Railway database");
+  connection.release(); // SUPER IMPORTANT - returns connection to pool
 });
 
 app.get("/customers", (req, res) => {
