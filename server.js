@@ -35,6 +35,20 @@ db.getConnection((err, connection) => {
   connection.release(); // SUPER IMPORTANT - returns connection to pool
 });
 
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "✅ Laundry Backend API is running!",
+    status: "healthy",
+    database: "connected",
+    endpoints: [
+      "GET /customers",
+      "POST /addCustomer", 
+      "PUT /updateStatus/:id",
+      "DELETE /deleteCustomer/:id"
+    ]
+  });
+});
+
 app.get("/customers", (req, res) => {
   const sql = `
     SELECT *
